@@ -1,6 +1,7 @@
 Створення простого застосунку на Adonis.js
 
 Встановлення AdonisJS глобально:
+#Bash
 ```Bash
 npm install -g @adonisjs/cli
 ```
