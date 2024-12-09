@@ -41,9 +41,11 @@ node index.js
 - ctx.body = 'Hello, World!';: Встановлює тіло відповіді на "Hello, World!".
 
 Структура проекту:
+```text
 my-koa-app/
 ├── package.json
 └── index.js
+```
 
 Як це працює:
 Коли ви запускаєте node index.js, сервер починає слухати на порту 3000. Коли хтось відкриє браузер і перейде за адресою http://localhost:3000, middleware буде виконаний і відправить відповідь "Hello, World!".

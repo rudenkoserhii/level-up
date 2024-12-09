@@ -1,7 +1,8 @@
 Створення простого застосунку на Adonis.js
 
 Встановлення AdonisJS глобально:
-#Bash
+##Bash##
+###Bash###
 ```Bash
 npm install -g @adonisjs/cli
 ```
@@ -14,7 +15,7 @@ cd my-adonis-app
 
 3. Структура проекту
 Після створення проекту ви отримаєте наступну структуру:
-
+```text
 my-adonis-app/
 ├── .adonisrc.json
 ├── app/
@@ -28,6 +29,7 @@ my-adonis-app/
 ├── resources/
 ├── start/
 └── tests/
+```
 
 4. Створення контролера
 Створимо контролер HomeController в папці app/Controllers:
