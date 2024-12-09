@@ -65,5 +65,27 @@ node app.js
 - res.render('index', { title: 'My Derby App' }): Рендерить шаблон index.html і передає в нього дані.
 - {{ messages.hello }}: Вставляє значення з моделі в шаблон.
 
+Типова структура проекту:
+```text
+your-derby-app/
+├── server
+│   ├── models
+│   │   └── your_model.js
+│   ├── controllers
+│   │   └── your_controller.js
+│   └── views
+│       └── your_view.html
+├── client
+│   ├── models
+│   │   └── your_model.js
+│   ├── controllers
+│   │   └── your_controller.js
+│   ├── views
+│       └── your_view.html
+├── public
+│   └── styles.css
+└── package.json
+```
+
 Як це працює:
 Derby.js автоматично синхронізує дані між сервером і клієнтом. Коли ви запустите сервер і відкриєте в браузері http://localhost:3000, ви побачите повідомлення "Hello, World!".

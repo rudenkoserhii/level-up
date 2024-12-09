@@ -1,88 +1,55 @@
-1. Global Installation:
+Створення найпростішого застосунку на Nest.js
 
-Ensure Node.js and npm (or yarn) are installed:
+1. Ініціалізація проекту:
+Встановіть глобально Nest CLI:
 ```Bash
-node -v
-npm -v
-```
-Install AdonisJS globally:
-```Bash
-npm install -g @adonisjs/cli
-```
-2. Verify Installation and PATH:
-
-Check the installation path:
-```Bash
-which adonis
-```
-This should print the path to the adonis executable.
-
-1. Створення проекту
-```Bash
-adonis new my-adonis-app
-cd my-adonis-app
+npm install -g @nestjs/cli
 ```
 
-2. Структура проекту
-Після створення проекту ви отримаєте наступну структуру:
-
-my-adonis-app/
-├── .adonisrc.json
-├── app/
-│   ├── Controllers/
-│   ├── Models/
-│   ├── Providers/
-│   └── Start/
-├── config/
-├── database/
-├── public/
-├── resources/
-├── start/
-└── tests/
-
-3. Створення контролера
-Створимо контролер HomeController в папці app/Controllers:
-
+Створіть новий проект:
 ```Bash
-adonis make:controller Home
+nest new my-nest-app
 ```
 
-Відкриємо файл app/Controllers/Http/HomeController.ts і додамо наступний код:
-
+2. Редагування файлу src/app.controller.ts:
 ```TypeScript
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { Controller, Get } from '@nestjs/common';
 
-export default class HomeController {
-  public async index({ response }: HttpContextContract) {
-    return response.send('Hello from AdonisJs!')
+@Controller()
+export class AppController {
+  @Get()
+  getHello(): string {
+    return 'Hello, World!';
   }
 }
 ```
-4. Налаштування маршруту
-Відкриємо файл start/routes.ts і додамо маршрут:
 
-```TypeScript
-import Route from '@ioc:Adonis/Core/Route'
-
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
-})
-```
-
-5. Створення виду
-Створимо вид welcome.edge в папці resources/views:
-
-```HTML
-<h1>{{ message }}</h1>
-```
-
-6. Запуск сервера
+3. Запуск сервера:
 ```Bash
-adonis serve --dev
+cd my-nest-app
+npm run start
 ```
 
 Пояснення коду:
--- HomeController: Це контролер, який обробляє запити. Метод index відповідає за головну сторінку.
--- routes.ts: Тут визначаються маршрути. Ми створили маршрут для головної сторінки (/).
--- welcome.edge: Це вид, який буде відображатися на головній сторінці. Ми передаємо в нього змінну message, значення якої встановлюється в контролері.
-Тепер, якщо ви відкриєте браузер і перейдете за адресою http://127.0.0.1:3333, ви побачите повідомлення "Hello from AdonisJs!".
+- @Controller(): Декоратор, який позначає клас як контролер.
+- @Get(): Декоратор, який позначає метод як обробник GET-запитів.
+- getHello(): Метод, який повертає рядок "Hello, World!".
+
+Структура проекту:
+```text
+my-nest-app/
+├── package.json
+├── src
+│   ├── app.controller.spec.ts
+│   ├── app.controller.ts
+│   ├── app.module.ts
+│   ├── app.service.ts
+│   └── main.ts
+└── test
+    ├── app.e2e-spec.ts
+```
+
+Як це працює:
+- app.controller.ts: містить логіку контролера, який обробляє вхідні запити.
+- app.module.ts: головний модуль додатку, де імпортуються всі інші модулі.
+- main.ts: точка входу в додаток, яка запускає сервер.

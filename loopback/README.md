@@ -1,88 +1,62 @@
-1. Global Installation:
+Створення простого застосунку на LoopBack
 
-Ensure Node.js and npm (or yarn) are installed:
+1. Ініціалізація проекту:
+Створити нову директорію для проекту:
 ```Bash
-node -v
-npm -v
+mkdir my-loopback-app
+cd my-loopback-app
 ```
-Install AdonisJS globally:
+
+Ініціалізувати пакет.json:
 ```Bash
-npm install -g @adonisjs/cli
+npm init -y
 ```
-2. Verify Installation and PATH:
 
-Check the installation path:
+2. Установка LoopBack:
 ```Bash
-which adonis
+npm install --save @loopback/application-starter
 ```
-This should print the path to the adonis executable.
 
-1. Створення проекту
+3. Створення основного файлу (server.js):
+```JavaScript
+const loopback = require('@loopback/application');
+const { BootMixin } = require('@loopback/boot');
+
+const app = new loopback.Application();
+app.boot(BootMixin);
+
+app.get('/', (req, res) => {
+  res.send('Hello from LoopBack!');
+});
+
+app.start()
+  .then(() => {
+    console.log('The server is running at http://127.0.0.1:3000');
+  })
+  .catch(err => {
+    console.error('Cannot start the application.', err);
+    process.exit(1);
+  });
+```
+
+4. Запуск сервера:
 ```Bash
-adonis new my-adonis-app
-cd my-adonis-app
-```
-
-2. Структура проекту
-Після створення проекту ви отримаєте наступну структуру:
-
-my-adonis-app/
-├── .adonisrc.json
-├── app/
-│   ├── Controllers/
-│   ├── Models/
-│   ├── Providers/
-│   └── Start/
-├── config/
-├── database/
-├── public/
-├── resources/
-├── start/
-└── tests/
-
-3. Створення контролера
-Створимо контролер HomeController в папці app/Controllers:
-
-```Bash
-adonis make:controller Home
-```
-
-Відкриємо файл app/Controllers/Http/HomeController.ts і додамо наступний код:
-
-```TypeScript
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
-export default class HomeController {
-  public async index({ response }: HttpContextContract) {
-    return response.send('Hello from AdonisJs!')
-  }
-}
-```
-4. Налаштування маршруту
-Відкриємо файл start/routes.ts і додамо маршрут:
-
-```TypeScript
-import Route from '@ioc:Adonis/Core/Route'
-
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
-})
-```
-
-5. Створення виду
-Створимо вид welcome.edge в папці resources/views:
-
-```HTML
-<h1>{{ message }}</h1>
-```
-
-6. Запуск сервера
-```Bash
-adonis serve --dev
+node server.js
 ```
 
 Пояснення коду:
--- HomeController: Це контролер, який обробляє запити. Метод index відповідає за головну сторінку.
--- routes.ts: Тут визначаються маршрути. Ми створили маршрут для головної сторінки (/).
--- welcome.edge: Це вид, який буде відображатися на головній сторінці. Ми передаємо в нього змінну message, значення якої встановлюється в контролері.
-Тепер, якщо ви відкриєте браузер і перейдете за адресою http://127.0.0.1:3333, ви побачите повідомлення "Hello from AdonisJs!".
+- const loopback = require('@loopback/application');: Імпортує основний клас для створення додатків LoopBack.
+- app.boot(BootMixin);: Ініціалізує базові компоненти додатку.
+- app.get('/', (req, res) => { ... }): Визначає маршрут для головної сторінки (/).
+- app.start(): Запускає сервер.
+
+Структура проекту:
+```text
+my-loopback-app/
+├── package.json
+└── server.js
+```
+
+Як це працює:
+Коли ви запускаєте node server.js, сервер починає слухати на порту 3000. Коли хтось відкриє браузер і перейде за адресою http://localhost:3000, сервер отримає запит, обробить його відповідно до визначеного маршруту і відправить відповідь "Hello from LoopBack!".
+

@@ -1,88 +1,54 @@
-1. Global Installation:
+Створення простого застосунку на Total.js
 
-Ensure Node.js and npm (or yarn) are installed:
+1. Ініціалізація проекту:
+Встановіть глобально Total.js CLI:
 ```Bash
-node -v
-npm -v
-```
-Install AdonisJS globally:
-```Bash
-npm install -g @adonisjs/cli
-```
-2. Verify Installation and PATH:
-
-Check the installation path:
-```Bash
-which adonis
-```
-This should print the path to the adonis executable.
-
-1. Створення проекту
-```Bash
-adonis new my-adonis-app
-cd my-adonis-app
+npm install -g total.js
 ```
 
-2. Структура проекту
-Після створення проекту ви отримаєте наступну структуру:
-
-my-adonis-app/
-├── .adonisrc.json
-├── app/
-│   ├── Controllers/
-│   ├── Models/
-│   ├── Providers/
-│   └── Start/
-├── config/
-├── database/
-├── public/
-├── resources/
-├── start/
-└── tests/
-
-3. Створення контролера
-Створимо контролер HomeController в папці app/Controllers:
-
+Створіть новий проект:
 ```Bash
-adonis make:controller Home
+total new my-total-app
 ```
 
-Відкриємо файл app/Controllers/Http/HomeController.ts і додамо наступний код:
-
-```TypeScript
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
-export default class HomeController {
-  public async index({ response }: HttpContextContract) {
-    return response.send('Hello from AdonisJs!')
+2. Редагування файлу app/controllers/home.js:
+```JavaScript
+module.exports = {
+  index: function (req, res) {
+    res.send('Hello from Total.js!');
   }
-}
-```
-4. Налаштування маршруту
-Відкриємо файл start/routes.ts і додамо маршрут:
-
-```TypeScript
-import Route from '@ioc:Adonis/Core/Route'
-
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
-})
+};
 ```
 
-5. Створення виду
-Створимо вид welcome.edge в папці resources/views:
-
-```HTML
-<h1>{{ message }}</h1>
-```
-
-6. Запуск сервера
+3. Запуск сервера:
 ```Bash
-adonis serve --dev
+cd my-total-app
+total start
 ```
 
 Пояснення коду:
--- HomeController: Це контролер, який обробляє запити. Метод index відповідає за головну сторінку.
--- routes.ts: Тут визначаються маршрути. Ми створили маршрут для головної сторінки (/).
--- welcome.edge: Це вид, який буде відображатися на головній сторінці. Ми передаємо в нього змінну message, значення якої встановлюється в контролері.
-Тепер, якщо ви відкриєте браузер і перейдете за адресою http://127.0.0.1:3333, ви побачите повідомлення "Hello from AdonisJs!".
+- app/controllers/home.js: Цей файл містить контролер, який обробляє запити до головної сторінки.
+- index: Метод контролера, який відповідає за обробку GET-запитів до кореневого маршруту (/).
+- res.send(): Відправляє текстову відповідь.
+
+Структура проекту:
+```text
+my-total-app/
+├── app
+│   ├── controllers
+│   │   └── home.js
+│   ├── models
+│   └── views
+├── config
+├── public
+├── routes
+└── package.json
+```
+
+Як це працює:
+- app/controllers: Містить логіку контролерів, які обробляють вхідні запити.
+- app/models: Визначає моделі даних, які відображають структуру даних у вашій базі даних.
+- app/views: Містить шаблони для рендерингу HTML-сторінок.
+- config: Містить конфігураційні файли для додатку.
+- public: Містить статичні файли, такі як CSS, JavaScript та зображення.
+- routes: Визначає маршрути додатку.

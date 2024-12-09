@@ -1,88 +1,62 @@
-1. Global Installation:
+Створення простого застосунку на Meteor.js
 
-Ensure Node.js and npm (or yarn) are installed:
+1. Виконайте команду для встановлення Meteor:
 ```Bash
-node -v
-npm -v
+npm install -g meteor
 ```
-Install AdonisJS globally:
+ -g - глобальне встановлення.
+
+2. Ініціалізація проекту:
+Створити нову директорію для проекту:
 ```Bash
-npm install -g @adonisjs/cli
+mkdir my-meteor-app
+cd my-meteor-app
 ```
-2. Verify Installation and PATH:
 
-Check the installation path:
+Ініціалізувати проект Meteor:
 ```Bash
-which adonis
-```
-This should print the path to the adonis executable.
-
-1. Створення проекту
-```Bash
-adonis new my-adonis-app
-cd my-adonis-app
+meteor create .
 ```
 
-2. Структура проекту
-Після створення проекту ви отримаєте наступну структуру:
+3. Редагування файлу imports/ui/body.js:
+```JavaScript
+import { Meteor } from 'meteor/meteor';
+import { Template } from 'meteor/templating';
+import './body.html';
 
-my-adonis-app/
-├── .adonisrc.json
-├── app/
-│   ├── Controllers/
-│   ├── Models/
-│   ├── Providers/
-│   └── Start/
-├── config/
-├── database/
-├── public/
-├── resources/
-├── start/
-└── tests/
-
-3. Створення контролера
-Створимо контролер HomeController в папці app/Controllers:
-
-```Bash
-adonis make:controller Home
+Template.body.helpers({
+  greeting: 'Hello, world!'
+});
 ```
 
-Відкриємо файл app/Controllers/Http/HomeController.ts і додамо наступний код:
-
-```TypeScript
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-
-export default class HomeController {
-  public async index({ response }: HttpContextContract) {
-    return response.send('Hello from AdonisJs!')
-  }
-}
-```
-4. Налаштування маршруту
-Відкриємо файл start/routes.ts і додамо маршрут:
-
-```TypeScript
-import Route from '@ioc:Adonis/Core/Route'
-
-Route.get('/', async ({ view }) => {
-  return view.render('welcome')
-})
-```
-
-5. Створення виду
-Створимо вид welcome.edge в папці resources/views:
-
+4. Створення файлу imports/ui/body.html:
 ```HTML
-<h1>{{ message }}</h1>
+<template name="body">
+  <h1>{{greeting}}</h1>
+</template>
 ```
 
-6. Запуск сервера
+5. Запуск сервера:
 ```Bash
-adonis serve --dev
+meteor
 ```
 
 Пояснення коду:
--- HomeController: Це контролер, який обробляє запити. Метод index відповідає за головну сторінку.
--- routes.ts: Тут визначаються маршрути. Ми створили маршрут для головної сторінки (/).
--- welcome.edge: Це вид, який буде відображатися на головній сторінці. Ми передаємо в нього змінну message, значення якої встановлюється в контролері.
-Тепер, якщо ви відкриєте браузер і перейдете за адресою http://127.0.0.1:3333, ви побачите повідомлення "Hello from AdonisJs!".
+- imports/ui/body.js: Цей файл містить логіку для шаблону. Метод helpers використовується для визначення даних, які будуть доступні в шаблоні.
+- imports/ui/body.html: Цей файл містить шаблон, який буде рендеритися на сторінці. Ми використовуємо {{greeting}} для відображення значення з helper-а.
+
+Як це працює:
+Meteor автоматично синхронізує дані між сервером і клієнтом, що дозволяє зміни, внесені на сервері, відразу відображати на клієнті.
+
+Структура проекту:
+```text
+my-meteor-app/
+├── .meteor
+├── imports
+│   └── ui
+│       ├── body.html
+│       └── body.js
+├── client
+├── server
+└── packages
+```
